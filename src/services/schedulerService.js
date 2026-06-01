@@ -40,6 +40,8 @@ class SchedulerService {
           }
         }));
 
+        await rssFetchQueue.addBulk(jobs);
+
         logger.info(`[Scheduler] Dispatched ${jobs.length} jobs to rss-fetch-queue.`);
 
       } catch (error) {

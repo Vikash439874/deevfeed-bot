@@ -13,13 +13,13 @@ const defaultJobOptions = {
 };
 
 // Queue 1: Fetches raw RSS XML feed files
-const rssFetchQueue = new Queue('rss-fetch-queue', {
+export const rssFetchQueue = new Queue('rss-fetch-queue', {
   connection: redisConfig,
   defaultJobOptions
 });
 
 // Queue 2: Processes articles through Gemini AI and publishes them
-const aiProcessQueue = new Queue('ai-process-queue', {
+export const aiProcessQueue = new Queue('ai-process-queue', {
   connection: redisConfig,
   defaultJobOptions: {
     ...defaultJobOptions,
