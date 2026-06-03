@@ -2,9 +2,23 @@ import Redis from 'ioredis';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const redisHost = process.env.REDIS_HOST || '127.0.0.1';
-const redisPort = parseInt(process.env.REDIS_PORT || '6379', 10);
-const redisPassword = process.env.REDIS_PASSWORD || undefined;
+let redisHost = process.env.REDIS_HOST || '127.0.0.1';
+let redisPort = parseInt(process.env.REDIS_PORT || '6379', 10);
+let redisPassword = process.env.REDIS_PASSWORD || undefined;
+
+// If a combined REDIS_URL is provided (common in Render/Upstash), parse it
+if (process.env.REDIS_URL) {
+  try {
+    const parsedUrl = new URL(process.env.REDIS_URL);
+    redisHost = parsedUrl.hostname;
+    redisPort = parseInt(parsedUrl.port, 10) || 6379;
+    if (parsedUrl.password) {
+      redisPassword = parsedUrl.password;
+    }
+  } catch (err) {
+    console.error('[Redis] Failed to parse REDIS_URL:', err.message);
+  }
+}
 
 // Plain config object — required by BullMQ Queue and Worker constructors
 const redisConfig = {
