@@ -2,6 +2,7 @@ import cron from 'node-cron';
 import FeedSource from '../models/FeedSource.js';
 import logger from '../utils/loggerWrapper.js';
 import { captureException } from '../config/sentry.js';
+import { rssFetchQueue } from '../queue/queue.js';
 
 class SchedulerService {
   constructor() {

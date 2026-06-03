@@ -2,6 +2,7 @@ import { GoogleGenAI } from '@google/genai';
 import mongoose from 'mongoose';
 import logger from '../utils/loggerWrapper.js';
 import { captureException } from '../config/sentry.js';
+import Article from '../models/Article.js';
 
 class AIService {
   constructor() {
