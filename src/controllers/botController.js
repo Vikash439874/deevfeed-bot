@@ -12,7 +12,7 @@ import { captureException } from '../config/sentry.js';
 const triggerSync = async (req, res) => {
   try {
     const activeSources = await FeedSource.find({ isActive: true });
-    
+
     if (activeSources.length === 0) {
       return res.status(400).json({ error: 'No active RSS feed sources available to sync.' });
     }
@@ -113,7 +113,7 @@ const getStats = async (req, res) => {
       duplicateCount,
       pendingCount,
       chartData,
-      devfeedApiUrl: process.env.DEVFEED_API_URL || process.env.DEEVFEED_API_URL || 'http://localhost:3000/api/news',
+      devfeedApiUrl: process.env.DEVFEED_API_URL || process.env.DEEVFEED_API_URL || 'http://deevfeed-news-backend.onrender.com/api/news',
       botSyncInterval: process.env.BOT_SYNC_INTERVAL || '*/15 * * * *'
     });
 
@@ -226,7 +226,7 @@ const forcePublishArticle = async (req, res) => {
     }
 
     logger.info(`[Bot Controller] Forced manual publication triggered for Article ID ${id} (${article.title})`);
-    
+
     const result = await publisherService.publishArticle(article);
     if (result.success) {
       article.status = 'published';
