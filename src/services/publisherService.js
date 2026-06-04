@@ -9,8 +9,8 @@ class PublisherService {
    * @returns {Promise<{success: boolean, response: any}>}
    */
   async publishArticle(article) {
-    const targetUrl = process.env.DEVFEED_API_URL;
-    const apiKey = process.env.DEVFEED_API_KEY;
+    const targetUrl = process.env.DEVFEED_API_URL || process.env.DEEVFEED_API_URL;
+    const apiKey = process.env.DEVFEED_API_KEY || process.env.DEEVFEED_API_KEY;
 
     if (!targetUrl || targetUrl.trim() === '' || targetUrl.includes('localhost:3000/api/news')) {
       logger.warn(`[Publisher] Target API URL not configured or set to default local. Simulating mock publishing for article: "${article.title}"`);
