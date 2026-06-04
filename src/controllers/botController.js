@@ -112,7 +112,9 @@ const getStats = async (req, res) => {
       failedCount,
       duplicateCount,
       pendingCount,
-      chartData
+      chartData,
+      devfeedApiUrl: process.env.DEVFEED_API_URL || process.env.DEEVFEED_API_URL || 'http://localhost:3000/api/news',
+      botSyncInterval: process.env.BOT_SYNC_INTERVAL || '*/15 * * * *'
     });
 
   } catch (error) {
